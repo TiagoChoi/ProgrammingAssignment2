@@ -10,25 +10,26 @@ set <- function(y) {
   x <<- y
   inv <<- NULL
 }
-get<- function() x
+get<- function() x  #gets us the matrix
 setInv <- function() inv <<-solve(x) 
-getInv <- function() inv
+getInv <- function() inv #gets us the inverse matrix
 list(set= set, get = get, setInv = setInv, getInv = getInv)
 }
 
 
-## cacheSolve contains a function to return the cached data
+## cacheSolve contains a function to return the cached inverse data 
+## or if it does not exists, it computes the inverse of the matrix 
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x
 inv <- x$getInv()
 if (!is.null(inv)) {
   message("getting cached data")
-  return(inv)
+  return(inv) #returns us the inverse value cached
 }
-mtx <- x$get()
+mtx <- x$get() 
 inv <- solve(mtx, ...)
 x$setInv(inv)
-inv
+inv  #returns us the inverse matrix
 }
 
